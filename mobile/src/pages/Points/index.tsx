@@ -114,9 +114,9 @@ const Points = () => {
   
   const navigation = useNavigation();
 
-  function handleNavigateToDetail(point_id: number){
+  function handleNavigateToDetail(id: number){
       navigation.navigate('Detail', {
-              point_id: point_id
+              point_id: id
       })
   }
 
@@ -141,7 +141,7 @@ const Points = () => {
   return (
     <>
       <View style={styles.container}>
-            <TouchableOpacity onPress={handleNavigateBack}>
+            <TouchableOpacity  style={{marginTop: 0}}  onPress={handleNavigateBack}>
                 <Icon name="arrow-left" size={20} color="#34cb79"/>
             </TouchableOpacity>
 

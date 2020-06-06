@@ -17,7 +17,7 @@ interface Params{
 }
 
 interface Data {
-  point:{
+  serializedPoint:{
     image: string,
     name: string,
     email: string,
@@ -31,19 +31,30 @@ interface Data {
   }[];
 }
 const Detail = () => {
-  const [data, setData] = useState<Data>({} as Data);
+ 
   const navigator = useNavigation();
   const route = useRoute();
+  const [dataPoint, setdataPoint] = useState<Data>({} as Data);
+ 
 
 
   const routeParams = route.params as Params;
 
   useEffect(()=>{
+
+    console.log("Funionou")
+
     api.get(`points/${routeParams.point_id}`).then((response)=>{
-          setData(response.data)
+          setdataPoint(response.data)
     })
+    
 
   }, [])
+
+
+
+
+
 
   function handleNavigateToBack(){
     navigator.goBack();
@@ -54,34 +65,37 @@ const Detail = () => {
   function sendEmail(){
         MailComposer.composeAsync({
           subject: 'Interesse na Coleta de resíduos',
-          recipients: [data.point.email],
+          recipients: [dataPoint.serializedPoint.email],
         })
   }
 
   function handleWhatsapp(){
-        Linking.openURL(`whatsapp://send?phone=${data.point.whatsapp}&text=Tenho intersse em coleta de resíduos`)
+        Linking.openURL(`whatsapp://send?phone=${dataPoint.serializedPoint.whatsapp}&text=Tenho intersse em coleta de resíduos`)
   }
 
-  if(!data.point){
-    return null
+
+  if(!dataPoint.serializedPoint){
+    return null;
   }
+
+ 
   return (
     <>
     <View style={styles.container}>
-      <TouchableOpacity onPress={handleNavigateToBack}>
+      <TouchableOpacity style={{marginTop: 50}} onPress={handleNavigateToBack}>
            <Icon name="arrow-left" size={20} color={'#34cb79'}></Icon>
       </TouchableOpacity>
 
-      <Image style={styles.pointImage} source={{uri: data.point.image_url}}></Image>
-
-      <Text style={styles.pointName}>{data.point.name}</Text>
+      
+      <Image style={styles.pointImage} source={{ uri: dataPoint.serializedPoint.image_url}}></Image>
+      <Text style={styles.pointName}>{dataPoint.serializedPoint.name}</Text>
       <Text style={styles.pointItems}>
-        {data.items.map(item => item.title ).join(', ')}
+        {dataPoint.items.map(item=> item.title).join(', ')}
       </Text>
 
       <View style={styles.address}>
             <Text style={styles.addressTitle}>Endereço: </Text>
-            <Text style={styles.addressContent}>{data.point.city}, {data.point.uf}</Text>
+            <Text style={styles.addressContent}>{dataPoint.serializedPoint.city} - {dataPoint.serializedPoint.uf}</Text>
       </View>
     </View>
 
