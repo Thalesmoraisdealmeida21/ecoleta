@@ -36,7 +36,7 @@
   <li><a href="#-ponto-de-partida">Ponto de Partida</a></li>
   <li><a href="#-funcionalidades-do-aplicativo">Funcionaldiades do Aplicativo</a></li>
   <li><a href="#-funcionalidades-do-aplicativo">Tecnologias</a></li>
-  <li><a href="#-Screenshots">Screenshots</a></li>
+  <li><a href="#Screenshots">Screenshots</a></li>
 </ul>
 
 ---
